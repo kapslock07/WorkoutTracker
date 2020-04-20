@@ -1,11 +1,15 @@
-var path = require("path");
-// const sequelize = require("sequelize");
-
+const db = require("../models")
 
 module.exports = function (server) {
 
-    server.get("/", (req, res) => {
-        res.sendFile(path.join(__dirname, "../public/index.html"));
+    server.get("/api/workouts", (req, res) => {
+        db.Workout.find({})
+            .then(data => {
+                res.json(data);
+            })
+            .catch(err => {
+                res.json(err);
+            });
     });
 
     server.get("/exercise", (req, res) => {

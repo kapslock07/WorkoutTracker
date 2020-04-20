@@ -15,10 +15,11 @@ app.use(express.json());
 
 app.use(express.static("public"));
 
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/populate", { useNewUrlParser: true });
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workout", { useNewUrlParser: true });
 
-let server = express();
-require("./routes/htmlroutes")(server);
+
+require("./routes/htmlroutes")(app);
+require("./routes/apiRoutes")(app);
 
 
 app.listen(PORT, () => {

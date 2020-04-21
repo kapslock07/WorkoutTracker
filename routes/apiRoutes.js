@@ -16,13 +16,24 @@ module.exports = function (server) {
 
 
     server.post("/api/workouts", ({ body }, res) => {
-        const workout = new Workout(body);
-        workout.addExercise(data);
-        workout.createWorkout(data = {});
+        // const workout = new db.Workout(body);
+        // workout.addExercise(data);
+        // workout.createWorkout(data = {});
 
-        Workout.create(workout)
+        db.Workout.create(body)
             .then(dbWorkout => {
                 res.json(dbWorkout);
+            })
+            .catch(err => {
+                res.json(err);
+            });
+    });
+
+    server.put("/api/workouts/:id", ({body, params}, res)=>{
+        //let {body, params} = req;
+        db.Workout.updateOne({_id: params.id}, { $push: { exercises: body } })
+            .then(data => {
+                res.json(data);
             })
             .catch(err => {
                 res.json(err);

@@ -9,27 +9,41 @@ const WorkoutSchema = new Schema({
   },
   exercises: [
     {
-        duration: {
-            type: Number,
-            required: true,
-        },
-        name: {
-            type: String,
-            required: true,
-            trim: true,
-        },
-        type: {
-            type: String,
-            required: true,
-            trim: true,
-        },
-        weight: Number,
-        reps: Number,
-        sets: Number,
-        distance: Number
+      duration: {
+        type: Number,
+        required: true,
+      },
+      name: {
+        type: String,
+        required: true,
+        trim: true,
+      },
+      type: {
+        type: String,
+        required: true,
+        trim: true,
+      },
+      weight: Number,
+      reps: Number,
+      sets: Number,
+      distance: Number
     }
   ]
+}, {
+  toObject: {
+    virtuals: true
+  },
+  toJSON: {
+    virtuals: true
+  }
 });
+
+WorkoutSchema
+  .virtual('totalDuration')
+  .get(function () {
+
+  });
+
 
 //virtuals
 //loop through exercises array, add up all the durations

@@ -12,16 +12,31 @@ module.exports = function (server) {
             });
     });
 
-    server.get("/exercise", (req, res) => {
-        res.sendFile(path.join(__dirname, "../public/exercise.html"));
+
+
+
+    server.post("/api/workouts", ({ body }, res) => {
+        const workout = new Workout(body);
+        workout.addExercise(data);
+        workout.createWorkout(data = {});
+
+        Workout.create(workout)
+            .then(dbWorkout => {
+                res.json(dbWorkout);
+            })
+            .catch(err => {
+                res.json(err);
+            });
     });
 
-    // server.get("/exercise?", (req, res) => {
-    //     res.render("exercise");
-    // });
-
-    server.get("/stats", (req, res) => {
-        res.sendFile(path.join(__dirname, "../public/stats.html"));
+    server.get("/api/workouts/range", (req, res) => {
+        db.Workout.find({})
+            .then(data => {
+                res.json(data);
+            })
+            .catch(err => {
+                res.json(err);
+            });
     });
 
 }
